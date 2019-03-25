@@ -273,6 +273,11 @@ class Twython(EndpointsMixin, object):
         """Shortcut for POST requests via :class:`request`"""
         return self.request(endpoint, 'POST', params=params, version=version)
 
+    def post_message(self, endpoint, params=None, version='1.1', json_encoded=False):
+        """Shortcut for POST requests via :class:`request`"""
+        print(params)
+        return self.request('direct_messages/events/new', 'POST', params='{"event": {"type": "message_create", "message_create": {"target": {"recipient_id": "'+params["user_id"]+'"}, "message_data": {"text": "'+params["text"]+'"}}}}', version=version) 
+
     def get_lastfunction_header(self, header, default_return_value=None):
         """Returns a specific header from the last API call
         This will return None if the header is not present
